@@ -45,7 +45,8 @@ resource, complexity, architecture, security, testing, and evidence checks.
 │       ├── references/       deep guidance only where the skill requires it
 │       └── example_utility.py  present only for executable utility skills
 └── scripts/
-    └── validate_workspace.py deterministic registry and structure validator
+    ├── install.py             zero-touch symlink installer for host-native dirs
+    └── validate_workspace.py  deterministic registry and structure validator
 ```
 
 Each skill is self-contained and loaded only after routing selects it. The
@@ -70,8 +71,38 @@ flowchart LR
 
 ## Native Placement
 
-This repository is the canonical payload. Review destination conflicts before
-copying host-native artifacts.
+This repository is the canonical payload; nothing in it needs to be copied by
+hand.
+
+### Zero-Touch Install
+
+Bring this repository into a project as a submodule, then run its installer
+once from the project root:
+
+```bash
+cd your-project
+git submodule add https://github.com/RahulBiju-dev/agents.git .agents-src
+./.agents-src/scripts/install.py
+```
+
+`scripts/install.py` relative-symlinks `agents/`, `commands/`, `workflows/`,
+`rules/`, and `skills/` (skipping underscore-prefixed templates) into
+`.cursor/`, `.claude/`, and `.agents/`, and symlinks `AGENTS.md` and
+`CLAUDE.md` to the project root — whichever hosts you actually use immediately
+see every persona, command, workflow, rule, and skill. It is safe to re-run
+after pulling updates: a link it previously created is refreshed, a real file
+left in its place is reported and never touched. Pass `--hosts
+cursor,claude` to skip a host, `--dry-run` to preview, or `--uninstall` to
+remove only the links it manages.
+
+Prefer a plain clone over a submodule if you don't want the extra repo
+tracked in git — clone this repository to any path, add that path to
+`.gitignore`, and run `install.py` from inside it instead (it defaults
+`--target` to the current directory, or pass `--target /path/to/project`).
+
+### Manual Placement
+
+Without running the installer, the same mapping applies:
 
 | Host | Project placement |
 |---|---|

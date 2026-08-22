@@ -1,75 +1,17 @@
 # Agents
 
-A universal, portable software-engineering control plane for a computer
-science student using Cursor, Claude Code, and Google Antigravity. One
-policy body, one set of agent personas, and one skill library serve all
-three hosts, backed by deterministic local validation — clone this
-repository once and reuse it across any project on any of the three.
-
-> **This branch is a scaffold.** The payload was cleared so the skill and command
-> library can be rebuilt from scratch. What remains is the structure, the format
-> contract, one worked example threaded through every registry, and copy-ready
-> authoring templates. The previous full set of personas, skills, commands,
-> workflows, and rules is still on `main`.
+A universal, portable software-engineering control plane for Cursor, Claude
+Code, and Google Antigravity. One policy body, one set of agent personas, and
+one skill library serve all three hosts, backed by deterministic local
+validation — clone this repository once and reuse it across any project on
+any of the three.
 
 The design assumes prompts may be short. Safe ambiguity is silently expanded
 into a professional execution contract; decision-changing ambiguity triggers a
 focused requirement grill. Every implementation remains subject to memory,
 resource, complexity, architecture, security, testing, and evidence checks.
 
-## Architecture
-
-```text
-.                              (this repository, clone it as `agents/` or any name you like)
-├── .gitignore                local Python and test artifact exclusions
-├── AGENTS.md                 canonical workspace policy and routing registry
-├── CLAUDE.md                 Claude Code import bridge
-├── agents/                   flat portable persona definitions
-│   ├── _TEMPLATE.md          authoring template
-│   └── example-engineer.md   worked example
-├── commands/                 Cursor and Claude Code slash commands
-│   ├── _TEMPLATE.md
-│   └── example.md
-├── workflows/                Antigravity slash trajectories
-│   ├── _TEMPLATE.md
-│   └── example.md
-├── rules/                    Cursor rule files
-│   ├── _TEMPLATE.mdc
-│   └── 01-example-guard.mdc
-├── skills/                   on-demand skill packages
-│   ├── _template/            authoring template package
-│   └── example-skill/
-│       ├── SKILL.md          routing description and operating contract
-│       ├── agents/
-│       │   └── openai.yaml   concise discovery metadata
-│       ├── references/       deep guidance only where the skill requires it
-│       └── example_utility.py  present only for executable utility skills
-└── scripts/
-    ├── install.py             zero-touch symlink installer for host-native dirs
-    └── validate_workspace.py  deterministic registry and structure validator
-```
-
-Each skill is self-contained and loaded only after routing selects it. The
-always-loaded context therefore stays compact even as the toolkit grows to cover
-a wide engineering surface.
-
-Files and directories whose name begins with an underscore are authoring
-templates. They are copy sources, never routed to, and skipped by the validator.
-
-```mermaid
-flowchart LR
-    U[User request] --> C[Root workspace contract]
-    C --> D{Material decision missing?}
-    D -->|No| P[Silent prompt upscaling]
-    D -->|Yes| G[Focused requirement grill]
-    P --> A[Primary agent persona]
-    G --> A
-    A --> S[Primary skill]
-    S --> R[Applicable rules]
-    R --> V[Executed validation and concise handoff]
-```
-
-## Native Placement
+## Installation
 
 This repository is the canonical payload; nothing in it needs to be copied by
 hand.
@@ -126,6 +68,61 @@ For machine-wide reuse, install reviewed agent profiles in
 `~/.cursor/agents/`, `~/.claude/agents/`, or `~/.gemini/config/agents/`.
 Project-local placement is safer when a profile or skill contains
 repository-specific behavior.
+
+## Architecture
+
+```text
+.                              (this repository, clone it as `agents/` or any name you like)
+├── .gitignore                local Python and test artifact exclusions
+├── AGENTS.md                 canonical workspace policy and routing registry
+├── CLAUDE.md                 Claude Code import bridge
+├── agents/                   flat portable persona definitions
+│   ├── _TEMPLATE.md          authoring template
+│   ├── assignment-solver.md  end-to-end coursework/assignment workflow
+│   ├── code-reviewer.md      code, architecture, and security review
+│   ├── example-engineer.md   worked example
+│   └── planner.md            implementation planning and design
+├── commands/                 Cursor and Claude Code slash commands
+│   ├── _TEMPLATE.md
+│   └── example.md
+├── workflows/                Antigravity slash trajectories
+│   ├── _TEMPLATE.md
+│   └── example.md
+├── rules/                    Cursor rule files
+│   ├── _TEMPLATE.mdc
+│   └── 01-example-guard.mdc
+├── skills/                   on-demand skill packages
+│   ├── _template/            authoring template package
+│   └── example-skill/
+│       ├── SKILL.md          routing description and operating contract
+│       ├── agents/
+│       │   └── openai.yaml   concise discovery metadata
+│       ├── references/       deep guidance only where the skill requires it
+│       └── example_utility.py  present only for executable utility skills
+└── scripts/
+    ├── install.py             zero-touch symlink installer for host-native dirs
+    └── validate_workspace.py  deterministic registry and structure validator
+```
+
+Each skill is self-contained and loaded only after routing selects it. The
+always-loaded context therefore stays compact even as the toolkit grows to cover
+a wide engineering surface.
+
+Files and directories whose name begins with an underscore are authoring
+templates. They are copy sources, never routed to, and skipped by the validator.
+
+```mermaid
+flowchart LR
+    U[User request] --> C[Root workspace contract]
+    C --> D{Material decision missing?}
+    D -->|No| P[Silent prompt upscaling]
+    D -->|Yes| G[Focused requirement grill]
+    P --> A[Primary agent persona]
+    G --> A
+    A --> S[Primary skill]
+    S --> R[Applicable rules]
+    R --> V[Executed validation and concise handoff]
+```
 
 ## How Each Platform Interacts
 

@@ -54,6 +54,12 @@ filename stem.
 - `@assignment-solver` → `agents/assignment-solver.md` — end-to-end
   university/graded assignment work; invoke only when the user explicitly
   says it's coursework.
+- `@code-reviewer` → `agents/code-reviewer.md` — code, architecture, and
+  security review plus debugging; read-only except for documentation that
+  contradicts a reviewed change.
+- `@planner` → `agents/planner.md` — implementation planning and design for
+  new features or optimizations; read-only, produces a plan artifact rather
+  than code changes.
 
 ## Ambiguity Upscaling
 

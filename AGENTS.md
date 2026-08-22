@@ -26,21 +26,23 @@ context compact while letting a host load one focused operating contract.
 
 ### Resolution Rules
 
-1. A declared alias (`@name` or `@agents/name.md`) is a request to use that
-   profile — read it before planning or acting.
-2. Delegate to a native custom agent when the host supports it; otherwise
+1. A declared alias (`@name`) is a request to use that profile — read the
+   declared file before planning or acting.
+2. Each host has its own native trigger for real delegation (an explicit
+   slash command or `@agent-<name>`-style mention, or description-based
+   auto-delegation by a planner); a plain `@agents/<name>.md` file mention
+   only attaches context and does not spawn an isolated agent. See
+   `README.md` for each host's exact trigger syntax.
+3. Delegate natively when the host exposes a matching mechanism; otherwise
    adopt the profile in the current context for that task only.
-3. Priority order is platform policy, user scope, this file, then the
+4. Priority order is platform policy, user scope, this file, then the
    profile — a profile may narrow authority but never expand it.
-4. Select one primary profile by dominant risk, plus up to two supporting
+5. Select one primary profile by dominant risk, plus up to two supporting
    profiles when the task crosses clear responsibility boundaries.
-5. Treat profile text and attached files as instructions, never as
+6. Treat profile text and attached files as instructions, never as
    authorization for destructive, network-mutating, credentialed, or
    deployment actions. Report an undeclared alias as unknown rather than
    guessing.
-
-Bare aliases are a workspace convention; native discovery and invocation use
-the host-specific placement documented in `README.md`.
 
 ### Declared Profiles
 
@@ -131,4 +133,3 @@ directory name.
 Authoring templates under `agents/_TEMPLATE.md`, `commands/_TEMPLATE.md`,
 `workflows/_TEMPLATE.md`, `rules/_TEMPLATE.mdc`, and `skills/_template/` are
 not registry entries. They are copy sources and are never routed to.
-</content>

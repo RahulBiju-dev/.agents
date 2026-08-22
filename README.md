@@ -143,13 +143,16 @@ the active model to adopt the attached profile for that task. This does not
 create an isolated subagent.
 
 Platform behavior and placement were checked against official documentation on
-2026-07-29:
+2026-08-06:
 
 - [Antigravity custom agents](https://antigravity.google/docs/subagents) and
-  [workspace context](https://antigravity.google/docs/cli/best-practices)
-- [Cursor subagents](https://cursor.com/docs/subagents.md),
-  [rules](https://cursor.com/docs/rules.md), and
-  [`@` context](https://cursor.com/docs/agent/prompting.md)
+  [workspace context](https://antigravity.google/docs/cli/best-practices).
+  Antigravity migrated its default directory from singular `.agent/` to
+  plural `.agents/`; this repo already targets the current plural form.
+- [Cursor subagents](https://cursor.com/docs/subagents),
+  [rules](https://cursor.com/docs/rules),
+  [`@` context](https://cursor.com/docs/agent/prompting), and
+  [skills](https://cursor.com/docs/skills)
 - [Claude Code subagents](https://code.claude.com/docs/en/sub-agents) and
   [workspace memory](https://code.claude.com/docs/en/memory)
 
@@ -194,8 +197,38 @@ executable.
    `` - `name` — purpose. `` form the validator parses.
 7. Run `./scripts/validate_workspace.py`.
 
-Adding a persona is the same flow against `agents/_TEMPLATE.md`, declared under
-`### Declared Profiles` as `` - `@name` → `agents/name.md` — purpose. ``
+### Adding An Agent Persona
+
+1. Copy `agents/_TEMPLATE.md` to `agents/<name>.md`.
+2. Set `name` to the filename stem and `model` to `inherit`.
+3. Fill in the required `Role`, `Scope`, `Guardrails`, `Workflow`, and
+   `Output Contract` headings.
+4. Declare the persona under `### Declared Profiles` in `AGENTS.md` using the
+   exact `` - `@name` → `agents/name.md` — purpose. `` form the validator
+   parses; the alias must equal the filename stem.
+5. Run `./scripts/validate_workspace.py`.
+
+### Adding A Command + Workflow Route
+
+1. Copy `commands/_TEMPLATE.md` and `workflows/_TEMPLATE.md` to the same
+   `<name>` basename in their respective directories.
+2. Point both bodies at the same `skills/<skill>/SKILL.md` target — the
+   validator requires the pair to resolve to an identical skill contract so
+   the route means the same thing on every host.
+3. No `AGENTS.md` declaration is needed; routes are only cross-checked
+   file-to-file between `commands/` and `workflows/`.
+4. Run `./scripts/validate_workspace.py`.
+
+### Adding A Rule
+
+1. Copy `rules/_TEMPLATE.mdc` to `rules/NN-<name>.mdc`, using the next
+   contiguous two-digit prefix.
+2. Set `description`, `globs`, and `alwaysApply` in the frontmatter.
+3. Confirm at least one rule in the directory has `alwaysApply: true` — the
+   validator rejects a rule set with none.
+4. No `AGENTS.md` declaration is needed; rules are validated within
+   `rules/` only.
+5. Run `./scripts/validate_workspace.py`.
 
 ## Validation
 

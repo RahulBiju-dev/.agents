@@ -1,9 +1,10 @@
-# Universal AI Engineering Dotfolder
+# Agents
 
-A portable software-engineering control plane for a computer science student
-using Cursor, Claude Code, and Google Antigravity. One policy body, one set of
-agent personas, and one skill library serve all three hosts, backed by
-deterministic local validation.
+A universal, portable software-engineering control plane for a computer
+science student using Cursor, Claude Code, and Google Antigravity. One
+policy body, one set of agent personas, and one skill library serve all
+three hosts, backed by deterministic local validation — clone this
+repository once and reuse it across any project on any of the three.
 
 > **This branch is a scaffold.** The payload was cleared so the skill and command
 > library can be rebuilt from scratch. What remains is the structure, the format
@@ -19,7 +20,7 @@ resource, complexity, architecture, security, testing, and evidence checks.
 ## Architecture
 
 ```text
-universal-ai-dotfolder/
+.                              (this repository, clone it as `agents/` or any name you like)
 ├── .gitignore                local Python and test artifact exclusions
 ├── AGENTS.md                 canonical workspace policy and routing registry
 ├── CLAUDE.md                 Claude Code import bridge

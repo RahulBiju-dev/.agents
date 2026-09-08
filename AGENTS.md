@@ -57,6 +57,8 @@ filename stem.
 - `@code-reviewer` → `agents/code-reviewer.md` — code, architecture, and
   security review plus debugging; read-only except for documentation that
   contradicts a reviewed change.
+- `@documentation-creator` → `agents/documentation-creator.md` — production
+  documentation and information architecture; excludes artifact generation.
 - `@planner` → `agents/planner.md` — implementation planning and design for
   new features or optimizations; read-only, produces a plan artifact rather
   than code changes.

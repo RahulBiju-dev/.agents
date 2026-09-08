@@ -401,6 +401,11 @@ class Validation:
             if not path.stat().st_mode & stat.S_IXUSR:
                 self.fail(path, "utility must be executable")
 
+    def validate_shell(self) -> None:
+        for path in sorted(self.root.glob("*.sh")):
+            if not path.stat().st_mode & stat.S_IXUSR:
+                self.fail(path, "entry point must be executable")
+
     def run(self) -> bool:
         agent_names = self.validate_agents()
         skill_names = self.validate_skills()
@@ -409,6 +414,7 @@ class Validation:
         self.validate_root_registry(agent_names, skill_names)
         self.validate_text()
         self.validate_python()
+        self.validate_shell()
         return not self.errors
 
 
